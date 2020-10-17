@@ -1,0 +1,12 @@
+import wollok.game.*
+import menu.*
+
+program PepitaGame {
+	game.title("Wollok MiniGames")
+	game.height(12)
+	game.width(16)
+	// game.boardGround("fondo2.jpg")
+	menu.principal()
+
+	game.start()
+}
