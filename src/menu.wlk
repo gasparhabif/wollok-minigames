@@ -3,6 +3,7 @@ import wollok.game.*
 object menu {
 	method principal() {
 		config.teclasMenuPrincipal()
+		config.iniciarMusica()
 		
 	}
 	method configuracion() {
@@ -29,7 +30,9 @@ object config {
 		keyboard.m().onPressDo({menu.principal()})
 	}
 	
-	method musica() {
+	method iniciarMusica() {
+//		sound.play()
+//		sound.shouldLoop(true)
 		
 	}
 
