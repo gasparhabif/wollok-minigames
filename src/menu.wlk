@@ -8,12 +8,14 @@ object menu {
 	}
 	method configuracion() {
 		config.teclasConfiguracion()
-		
 	}
 }
 
 
 object config {
+	
+	var property cantidadDeJugadores = 1
+	var property jugadorActual = 1
 
 	method teclasMenuPrincipal() {
 		
@@ -28,6 +30,10 @@ object config {
 	
 	method teclasConfiguracion() {
 		keyboard.m().onPressDo({menu.principal()})
+		keyboard.num1().onPressDo({self.cantidadDeJugadores(1)})
+		keyboard.num1().onPressDo({self.cantidadDeJugadores(2)})
+		keyboard.num1().onPressDo({self.cantidadDeJugadores(3)})
+		keyboard.num1().onPressDo({self.cantidadDeJugadores(4)})
 	}
 	
 	method iniciarMusica() {
