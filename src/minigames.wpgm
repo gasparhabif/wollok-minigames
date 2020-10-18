@@ -1,6 +1,5 @@
 import wollok.game.*
 import menu.*
-import flappy.*
 
 program PepitaGame {
 	game.title("Wollok MiniGames")
@@ -10,7 +9,6 @@ program PepitaGame {
 	game.width(80)
 
 	menu.principal()
-	game.showAttributes(personaje)
 
 	game.start()
 }
