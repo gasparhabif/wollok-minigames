@@ -1,12 +1,16 @@
 import wollok.game.*
 import menu.*
+import flappy.*
 
 program PepitaGame {
 	game.title("Wollok MiniGames")
-	game.height(12)
-	game.width(16)
-	// game.boardGround("fondo2.jpg")
+	
+	game.cellSize(10)
+	game.height(60)
+	game.width(80)
+
 	menu.principal()
+	game.showAttributes(personaje)
 
 	game.start()
 }

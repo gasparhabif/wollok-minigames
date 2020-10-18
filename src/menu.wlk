@@ -1,7 +1,9 @@
 import wollok.game.*
+import flappy.*
 
 object menu {
 	method principal() {
+		// game.boardGround("fondo2.jpg")
 		config.teclasMenuPrincipal()
 		config.iniciarMusica()
 		
@@ -15,11 +17,10 @@ object menu {
 object config {
 	
 	var property cantidadDeJugadores = 1
-	var property jugadorActual = 1
 
 	method teclasMenuPrincipal() {
 		
-		keyboard.num1().onPressDo({})
+		keyboard.num1().onPressDo({flappy.iniciar()})
 		keyboard.num2().onPressDo({})
 		keyboard.num3().onPressDo({})
 		keyboard.num4().onPressDo({})
@@ -31,9 +32,9 @@ object config {
 	method teclasConfiguracion() {
 		keyboard.m().onPressDo({menu.principal()})
 		keyboard.num1().onPressDo({self.cantidadDeJugadores(1)})
-		keyboard.num1().onPressDo({self.cantidadDeJugadores(2)})
-		keyboard.num1().onPressDo({self.cantidadDeJugadores(3)})
-		keyboard.num1().onPressDo({self.cantidadDeJugadores(4)})
+		keyboard.num2().onPressDo({self.cantidadDeJugadores(2)})
+		keyboard.num3().onPressDo({self.cantidadDeJugadores(3)})
+		keyboard.num4().onPressDo({self.cantidadDeJugadores(4)})
 	}
 	
 	method iniciarMusica() {
