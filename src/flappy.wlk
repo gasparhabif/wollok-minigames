@@ -1,10 +1,18 @@
 import wollok.game.*
 import jugador.*
+import obstaculo.*
+import extra.*
+
+const SALTO = 6
 
 object flappy {
 	method iniciar(){
+		const unObstaculo = new Obstaculo()
+		
 		game.addVisualCharacter(personaje)
-		game.addVisual(piso)
+		unObstaculo.generarObstaculo()
+		game.addVisual(pisoCollider)
+		game.addVisual(pisoDecoracion)
 		
 		configFlappy.teclas()
 		configFlappy.coliders() 
@@ -14,46 +22,53 @@ object flappy {
 
 object personaje {
 	var property position = game.center()
+	var property perdio = false
 	
 	method image() = jugador2.imagen()
 	
 	method saltar() {
-		position = self.position().up(6)	
+		if(!self.perdio() && self.puedeSaltar()){
+			position = self.position().up(SALTO)				
+		}
 	}
 	method caer() {
 		position = self.position().down(1)
 	}
-	method perdio() {
+	method perder() {
 		position = game.center()
 		game.removeTickEvent("gravedad")
 		game.removeTickEvent("moverObstaculos")
 		game.say(self, "Perdi :(")
+		perdio = true
 	}
+	method puedeSaltar() = game.height() > self.position().y() + SALTO
 }
 
-object piso {
-	var property position = game.origin()
-	
+class Piso {
 	method image() = "assets/fondos/piso-flappy.png"
+}
+
+object pisoCollider inherits Piso {
+	var property position = game.at(game.center().x(), 0)	
+}
+
+object pisoDecoracion inherits Piso {
+	var property position = game.origin()	
 }
 
 object configFlappy {
 	method teclas() {
-		keyboard.any().onPressDo({personaje.saltar()})
+		keyboard.any().onPressDo({ personaje.saltar() })
 		
-		// Anular movimientos default de las flechas
-		keyboard.up().onPressDo({personaje.position(personaje.position().down(1))})
-		keyboard.down().onPressDo({personaje.position(personaje.position().up(1))})
-		keyboard.right().onPressDo({personaje.position(personaje.position().left(1))})
-		keyboard.left().onPressDo({personaje.position(personaje.position().right(1))})
+		funcionalidades.cancelarMovimientoFlechas(personaje)
 		
 		game.onTick(30, "gravedad", { personaje.caer() })
 		game.onTick(50, "moverObstaculos", {})
 	}
+	
 	method coliders(){
 		game.whenCollideDo(personaje, { elemento => 
-			personaje.perdio()	
-			
+			personaje.perder()	
 		})
 	}
 }
